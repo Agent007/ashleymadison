@@ -1,3 +1,4 @@
+-- Merge CSV files into 1 before uploading to HDFS
 CREATE DATABASE IF NOT EXISTS ashleymadison;
 USE ashleymadison;
 DROP TABLE IF EXISTS rawcreditcardtransactions;
