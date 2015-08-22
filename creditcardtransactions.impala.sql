@@ -67,3 +67,9 @@ regexp_extract(txt_addr2, '"(.*)"', 1) AS address2,
 regexp_extract(zip, '"(.*)"', 1) AS zip,
 regexp_extract(consumer_ip, '"(.*)"', 1) AS ip_address
 FROM rawcreditcardtransactions WHERE account <> '' AND account IS NOT NULL AND account <> 'ACCOUNT';
+-- Check and compoare counts
+SELECT count(*) FROM rawcreditcardtransactions; -- 9693860
+SELECT count(*) FROM creditcardtransactions; -- 9688583
+SELECT sum(amount) FROM CREDITCARDTRANSACTIONS; -- 630403148.94 Is this all in dollars?
+-- $150M estimated revenue in 2014 according to BBC http://www.bbc.com/news/business-32746405
+SELECT year(dateandtime) AS yr, sum(amount) AS yearly_revenue FROM CREDITCARDTRANSACTIONS GROUP BY yr ORDER BY yr;
