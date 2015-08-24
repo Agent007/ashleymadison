@@ -7,6 +7,7 @@ cat *.csv > merged.csv # Your actual file directory path may differ
 
 # We need CSVInputFormat to properly extract multi-line fields wrapped in quotes. Spark CSV doesn't yet handle it.
 # (https://github.com/databricks/spark-csv/issues/72)
+# TODO properly recognize commas within quotes instead of mistaking them for field termination characters
 git clone git@github.com:Agent007/CSVInputFormat.git
 cd CSVInputFormat
 git checkout Hadoop2.5.0

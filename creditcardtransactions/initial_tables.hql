@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS ashleymadison;
 USE ashleymadison;
 
 DROP TABLE IF EXISTS creditcardtransactions_json;
-CREATE EXTERNAL TABLE creditcardtransactions_json ( json string ) LOCATION '/user/ashleymadison/creditcardtransactions_jon';
+CREATE EXTERNAL TABLE creditcardtransactions_json ( json string ) LOCATION '/user/ashleymadison/creditcardtransactions/D_json/';
 
 DROP TABLE IF EXISTS creditcardtransactions_strings;
 CREATE TABLE creditcardtransactions_strings

@@ -1,4 +1,5 @@
-val file = "mergedWithSomeManualCleanUp.csv"
+// val mergedFile = "A_merged/"
+val file = "B_someManualCleaning/"
 val lines = sc.textFile(file, 32)
 import util.matching.Regex.Match
 def removeComma(m: Match) = {
@@ -10,7 +11,7 @@ val records = lines.map(l => amountRegEx.replaceAllIn(l, removeComma(_))).filter
 //badLines.count
 //badLines take 3 // show 3 examples
 //badLines.collect foreach println
-val filteredOutputDirectory = "cleaned"
+val filteredOutputDirectory = "C_cleaned/"
 records.saveAsTextFile(filteredOutputDirectory)
 
 import java.util.List
@@ -64,15 +65,10 @@ val schema = StructType(
     Nil
 )
 val transactionsDataFrame = sqlContext.createDataFrame(transactionRows, schema)
-val finalOutputTableDirectory = "creditcardtransactions_json"
+val finalOutputTableDirectory = "D_json/"
 import org.apache.spark.sql.SaveMode
 transactionsDataFrame.write.format("json").mode(SaveMode.Overwrite).save(finalOutputTableDirectory) // Note: Saving as Parquet requires tons of memory
 
 // data quality checks for commas within text fields
 transactionsDataFrame.registerTempTable("transactions")
-val addresses = sqlContext.sql("""SELECT address1, dateandtime FROM transactions WHERE address1 LIKE '%\n%'""")
-addresses.collect foreach println
-val datetimes = sqlContext.sql("""SELECT dateandtime FROM transactions WHERE address1 LIKE '%\n%'""")
-datetimes.collect
-val address2s = sqlContext.sql("""SELECT address2, dateandtime FROM transactions WHERE address2 LIKE '%\n%'""")
-val address2Array = address2s.collect
+def malformedRows(column: String) = sqlContext.sql(s"SELECT $column FROM transactions WHERE $column LIKE '%\n%'").collect
