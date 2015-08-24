@@ -71,4 +71,4 @@ transactionsDataFrame.write.format("json").mode(SaveMode.Overwrite).save(finalOu
 transactionsDataFrame.count // 9685914
 // data quality checks for commas within text fields
 transactionsDataFrame.registerTempTable("transactions")
-def malformedRows(column: String) = sqlContext.sql(s"SELECT $column FROM transactions WHERE $column LIKE '%\n%'").collect
+def possiblyMalformedRows(column: String) = sqlContext.sql(s"SELECT $column FROM transactions WHERE $column LIKE '%\n%'").collect
