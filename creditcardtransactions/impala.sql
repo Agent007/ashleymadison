@@ -49,7 +49,7 @@ SELECT count(*) FROM creditcardtransactions WHERE amount IS NULL; -- 10640
 SELECT count(*) FROM creditcardtransactions_strings WHERE amount IS NULL; -- 0
 SELECT count(*) FROM creditcardtransactions_strings WHERE amount = ''; -- 0
 SELECT * FROM creditcardtransactions_strings WHERE txn_id = '6985149'; -- There are negative amounts!
-SELECT count(*) FROM creditcardtransactions WHERE amount < 0;
+SELECT DISTINCT type FROM creditcardtransactions WHERE amount < 0; -- 'Chargeback'
 
 SELECT count(*) FROM creditcardtransactions WHERE card_ending IS NULL; --
 SELECT count(*) FROM creditcardtransactions_strings WHERE card_ending IS NULL OR length(trim(card_ending)) = 0 OR upper(card_ending) LIKE '%NULL%'; -- 35370
@@ -61,5 +61,3 @@ SELECT count(*) FROM creditcardtransactions_strings WHERE merchant_trans_id IS N
 SELECT count(*) FROM creditcardtransactions WHERE dateandtime IS NULL; -- 0
 
 SELECT * FROM creditcardtransactions_strings WHERE dateandtime = '2015-05-16 01:35:30'; -- not all txn_id's are numbers
-
-
