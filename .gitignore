@@ -4,6 +4,8 @@
 metastore_db
 CSVInputFormat
 *.csv
-cleaned
-creditcardtransactions_json
+A_merged
+B_someManualCleaning
+C_cleaned
+D_json
 *.swp
