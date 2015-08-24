@@ -68,7 +68,7 @@ val transactionsDataFrame = sqlContext.createDataFrame(transactionRows, schema)
 val finalOutputTableDirectory = "D_json/"
 import org.apache.spark.sql.SaveMode
 transactionsDataFrame.write.format("json").mode(SaveMode.Overwrite).save(finalOutputTableDirectory) // Note: Saving as Parquet requires tons of memory
-
+transactionsDataFrame.count // 9685914
 // data quality checks for commas within text fields
 transactionsDataFrame.registerTempTable("transactions")
 def malformedRows(column: String) = sqlContext.sql(s"SELECT $column FROM transactions WHERE $column LIKE '%\n%'").collect
